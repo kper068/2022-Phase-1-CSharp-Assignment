@@ -19,14 +19,26 @@ public class Video : IItem
 
   public void BorrowItem(Person borrower)
   {
-    // TODO: Implement this method
-    throw new NotImplementedException();
+    if (IsAvailable() && !Borrowers.Contains(borrower))
+    {
+      Borrowers.Add(borrower);
+    }
+    else
+    {
+      throw new InvalidOperationException();
+    }
   }
 
   public void ReturnItem(Person returnee)
   {
-    // TODO: Implement this method
-    throw new NotImplementedException();
+    if (Borrowers.Contains(returnee))
+    {
+      Borrowers.Remove(returnee);
+    }
+    else
+    {
+      throw new InvalidOperationException();
+    }
   }
 
   public override string ToString()

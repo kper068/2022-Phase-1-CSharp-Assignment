@@ -9,31 +9,43 @@ public sealed class LibraryService : ILibraryService
 
   public IItem GetItem(string id)
   {
-    // TODO: Implement this method
-    throw new NotImplementedException();
+    foreach (IItem item in _items)
+    {
+      if (item.Id == id)
+      {
+        return item;
+      }
+    }
+    throw new InvalidOperationException();
   }
 
   public void AddItem(IItem item)
   {
-    // TODO: Implement this method
-    throw new NotImplementedException();
+    foreach (IItem currentItem in _items)
+    {
+      if (currentItem == item)
+      {
+        throw new InvalidOperationException();
+      }
+    }
+    _items.Add(item);
   }
 
   public void RemoveItem(string id)
   {
-    // TODO: Implement this method
-    throw new NotImplementedException();
+    IItem currentItem = GetItem(id);
+    _items.Remove(currentItem);
   }
 
   public void BorrowItem(string id, Person borrower)
   {
-    // TODO: Implement this method
-    throw new NotImplementedException();
+    IItem currentItem = GetItem(id);
+    currentItem.BorrowItem(borrower);
   }
 
   public void ReturnItem(string id, Person returnee)
   {
-    // TODO: Implement this method
-    throw new NotImplementedException();
+    IItem currentItem = GetItem(id);
+    currentItem.ReturnItem(returnee);
   }
 }
